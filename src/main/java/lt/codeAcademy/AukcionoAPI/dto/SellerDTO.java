@@ -17,6 +17,6 @@ public class SellerDTO {
     private Long id;
     private String name;
     private String surname;
-    private List<Item> itemList;
+    private List<ItemDTO> itemListDTO;
 
 }

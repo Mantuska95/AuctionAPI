@@ -36,7 +36,8 @@ public class CurrentBidService {
     public CurrentBidDTO updateBid(CurrentBid currentBid) {
         CurrentBid currentBidToUpdate = currentBidRepository.findById(currentBid.getId()).orElseThrow(() -> new NoSuchElementException());
         currentBidToUpdate.setBid(currentBid.getBid());
-        currentBidToUpdate.setBuyers(currentBid.getBuyers());
+        currentBidToUpdate.setBuyer(currentBid.getBuyer());
+        currentBidToUpdate.setItem(currentBid.getItem());
         currentBidRepository.save(currentBidToUpdate);
         return CurrentBidConverter.convertCurrentBidToDTO(currentBidToUpdate);
     }

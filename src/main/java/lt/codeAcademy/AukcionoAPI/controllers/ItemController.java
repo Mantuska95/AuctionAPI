@@ -1,13 +1,9 @@
 package lt.codeAcademy.AukcionoAPI.controllers;
 
-import lt.codeAcademy.AukcionoAPI.converters.BuyerConverter;
 import lt.codeAcademy.AukcionoAPI.converters.ItemConverter;
-import lt.codeAcademy.AukcionoAPI.dto.BuyerDTO;
 import lt.codeAcademy.AukcionoAPI.dto.ItemDTO;
-import lt.codeAcademy.AukcionoAPI.services.BuyerService;
 import lt.codeAcademy.AukcionoAPI.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

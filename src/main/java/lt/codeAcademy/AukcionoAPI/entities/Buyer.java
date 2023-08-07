@@ -1,16 +1,14 @@
 package lt.codeAcademy.AukcionoAPI.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
+@ToString
+@RequiredArgsConstructor
 @Getter
 @Setter
 @Table(name = "buyer")
@@ -32,13 +30,14 @@ public class Buyer {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @ManyToOne
-    private CurrentBid currentBid;
+    @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<CurrentBid> currentBid;
 
     @PrePersist
     void prePersist() {
         this.createdAt = LocalDateTime.now();
     }
+
     @PreUpdate
     void preUpdate() {
         this.updatedAt = LocalDateTime.now();

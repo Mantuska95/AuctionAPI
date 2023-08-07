@@ -13,5 +13,7 @@ public class CurrentBidDTO {
 
     private Long id;
     private Double bid;
+    private Long buyerDTOId;
+    private Long itemDTOId;
 
 }

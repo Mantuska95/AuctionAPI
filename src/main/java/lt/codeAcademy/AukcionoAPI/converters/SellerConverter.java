@@ -15,7 +15,7 @@ public class SellerConverter {
             sellerDTO.setId(seller.getId());
             sellerDTO.setName(seller.getName());
             sellerDTO.setSurname(seller.getSurname());
-            sellerDTO.setItemList(seller.getItem());
+            sellerDTO.setItemListDTO(ItemConverter.convertItemsToDTO(seller.getItem()));
         }
         return sellerDTO;
     }
@@ -27,7 +27,7 @@ public class SellerConverter {
             seller.setId(sellerDTO.getId());
             seller.setName(sellerDTO.getName());
             seller.setSurname(seller.getSurname());
-            seller.setItem(sellerDTO.getItemList());
+            seller.setItem(ItemConverter.convertItemsDTOToItems(sellerDTO.getItemListDTO()));
         }
         return seller;
     }

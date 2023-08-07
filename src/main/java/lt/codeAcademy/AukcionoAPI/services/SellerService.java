@@ -35,9 +35,9 @@ public class SellerService {
 
     public SellerDTO updateSeller(Seller seller) {
         Seller sellerToUpdate = sellerRepository.findById(seller.getId()).orElseThrow(() -> new NoSuchElementException());
-        sellerToUpdate.setItem(seller.getItem());
         sellerToUpdate.setName(seller.getName());
         sellerToUpdate.setSurname(seller.getSurname());
+        sellerToUpdate.setItem(seller.getItem());
         sellerRepository.save(sellerToUpdate);
         return SellerConverter.convertSellerToDTO(sellerToUpdate);
     }

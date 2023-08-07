@@ -38,6 +38,7 @@ public class ItemService {
         itemToUpdate.setInformation(item.getInformation());
         itemToUpdate.setName(item.getName());
         itemToUpdate.setCurrentBid(item.getCurrentBid());
+        itemToUpdate.setSeller(item.getSeller());
         return ItemConverter.convertItemToDTO(itemToUpdate);
     }
 }

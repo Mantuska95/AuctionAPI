@@ -2,6 +2,7 @@ package lt.codeAcademy.AukcionoAPI.converters;
 
 import lt.codeAcademy.AukcionoAPI.dto.BuyerDTO;
 import lt.codeAcademy.AukcionoAPI.entities.Buyer;
+import lt.codeAcademy.AukcionoAPI.entities.CurrentBid;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ public class BuyerConverter {
             buyerDTO.setId(buyer.getId());
             buyerDTO.setName(buyer.getName());
             buyerDTO.setSurname(buyer.getSurname());
+            buyerDTO.setCurrentBidListDTO(CurrentBidConverter.convertCurrentBidsToCurrentBidsDTO(buyer.getCurrentBid()));
         }
         return buyerDTO;
     }
@@ -26,6 +28,7 @@ public class BuyerConverter {
             buyer.setId(buyerDTO.getId());
             buyer.setName(buyerDTO.getName());
             buyer.setSurname(buyerDTO.getSurname());
+            buyer.setCurrentBid(CurrentBidConverter.convertCurrentBidsDTOToCurrentBids(buyerDTO.getCurrentBidListDTO()));
         }
         return buyer;
     }

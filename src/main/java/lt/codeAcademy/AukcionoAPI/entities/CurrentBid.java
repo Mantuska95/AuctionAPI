@@ -1,21 +1,19 @@
 package lt.codeAcademy.AukcionoAPI.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
-@Entity
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Getter
 @Setter
+@ToString
+@RequiredArgsConstructor
+@Entity
 @Table(name = "currentBid")
 public class CurrentBid {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,11 +21,11 @@ public class CurrentBid {
     @Column(name = "bid")
     private Double bid;
 
-    @OneToMany(mappedBy = "currentBid", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Buyer> buyers;
+    @ManyToOne
+    private Buyer buyer;
 
-    @OneToMany(mappedBy = "currentBid", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Item> items;
+    @ManyToOne
+    private Item item;
 
 
     @Column(name = "created_at")
@@ -40,6 +38,7 @@ public class CurrentBid {
     void prePersist() {
         this.createdAt = LocalDateTime.now();
     }
+
     @PreUpdate
     void preUpdate() {
         this.updatedAt = LocalDateTime.now();

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -31,8 +32,8 @@ public class Item {
     @ManyToOne
     private Seller seller;
 
-    @ManyToOne
-    private CurrentBid currentBid;
+    @OneToMany(mappedBy = "item")
+    private List<CurrentBid> currentBid;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

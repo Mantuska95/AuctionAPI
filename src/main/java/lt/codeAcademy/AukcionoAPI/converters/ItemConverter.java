@@ -15,6 +15,7 @@ public class ItemConverter {
             itemDTO.setId(item.getId());
             itemDTO.setName(item.getName());
             itemDTO.setInformation(item.getInformation());
+            itemDTO.setCurrentBidListDTO(CurrentBidConverter.convertCurrentBidsToCurrentBidsDTO(item.getCurrentBid()));
         }
         return itemDTO;
     }
@@ -26,6 +27,7 @@ public class ItemConverter {
             item.setId(itemDTO.getId());
             item.setName(itemDTO.getName());
             item.setInformation(itemDTO.getInformation());
+            item.setCurrentBid(CurrentBidConverter.convertCurrentBidsDTOToCurrentBids(itemDTO.getCurrentBidListDTO()));
         }
         return item;
     }
@@ -39,5 +41,16 @@ public class ItemConverter {
             }
         }
         return itemDTOList;
+    }
+
+    public static List<Item> convertItemsDTOToItems(Iterable<ItemDTO> itemListDTO){
+        List<Item> itemList = null;
+        if(itemListDTO != null){
+            itemList = new ArrayList<>();
+            for (ItemDTO i : itemListDTO){
+                itemList.add(ItemConverter.convertDTOToItem(i));
+            }
+        }
+        return itemList;
     }
 }
