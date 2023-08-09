@@ -2,7 +2,7 @@ package lt.codeAcademy.AukcionoAPI.services;
 
 import lombok.AllArgsConstructor;
 import lt.codeAcademy.AukcionoAPI.converters.CurrentBidConverter;
-import lt.codeAcademy.AukcionoAPI.dto.CurrentBidDTO;
+import lt.codeAcademy.AukcionoAPI.dto.request.CurrentBidDTO;
 import lt.codeAcademy.AukcionoAPI.entities.CurrentBid;
 import lt.codeAcademy.AukcionoAPI.repositories.CurrentBidRepository;
 import org.springframework.stereotype.Service;
@@ -18,14 +18,14 @@ public class CurrentBidService {
 
     public CurrentBidDTO addBid(CurrentBid currentBid) {
         currentBidRepository.save(currentBid);
-        return CurrentBidConverter.convertCurrentBidToDTO(currentBid);
+        return CurrentBidConverter.convertCurrentBidToDTORequest(currentBid);
     }
 
-    public CurrentBidDTO getBidById(Long id) {
-        return CurrentBidConverter.convertCurrentBidToDTO(currentBidRepository.getReferenceById(id));
+    public lt.codeAcademy.AukcionoAPI.dto.response.CurrentBidDTO getBidById(Long id) {
+        return CurrentBidConverter.convertCurrentBidToDTOResponse(currentBidRepository.getReferenceById(id));
     }
 
-    public List<CurrentBidDTO> getAllBids() {
+    public List<lt.codeAcademy.AukcionoAPI.dto.response.CurrentBidDTO> getAllBids() {
         return CurrentBidConverter.convertCurrentBidsToCurrentBidsDTO(currentBidRepository.findAll());
     }
 
@@ -33,13 +33,11 @@ public class CurrentBidService {
         currentBidRepository.deleteById(id);
     }
 
-    public CurrentBidDTO updateBid(CurrentBid currentBid) {
-        CurrentBid currentBidToUpdate = currentBidRepository.findById(currentBid.getId()).orElseThrow(() -> new NoSuchElementException());
+    public CurrentBid updateBid(Long id , lt.codeAcademy.AukcionoAPI.dto.response.CurrentBidDTO currentBid) {
+        CurrentBid currentBidToUpdate = currentBidRepository.findById(id).orElseThrow(() -> new NoSuchElementException());
         currentBidToUpdate.setBid(currentBid.getBid());
-        currentBidToUpdate.setBuyer(currentBid.getBuyer());
-        currentBidToUpdate.setItem(currentBid.getItem());
         currentBidRepository.save(currentBidToUpdate);
-        return CurrentBidConverter.convertCurrentBidToDTO(currentBidToUpdate);
+        return currentBidToUpdate;
     }
 
 }

@@ -2,7 +2,7 @@ package lt.codeAcademy.AukcionoAPI.services;
 
 import lombok.AllArgsConstructor;
 import lt.codeAcademy.AukcionoAPI.converters.ItemConverter;
-import lt.codeAcademy.AukcionoAPI.dto.ItemDTO;
+import lt.codeAcademy.AukcionoAPI.dto.request.ItemDTO;
 import lt.codeAcademy.AukcionoAPI.entities.Item;
 import lt.codeAcademy.AukcionoAPI.repositories.ItemRepository;
 import org.springframework.stereotype.Service;
@@ -16,16 +16,16 @@ public class ItemService {
 
     private ItemRepository itemRepository;
 
-    public ItemDTO addItem(Item item){
+    public ItemDTO addItem(Item item) {
         itemRepository.save(item);
-        return ItemConverter.convertItemToDTO(item);
+        return ItemConverter.convertItemToDTORequest(item);
     }
 
-    public ItemDTO getItemById(Long id){
-        return ItemConverter.convertItemToDTO(itemRepository.getReferenceById(id));
+    public lt.codeAcademy.AukcionoAPI.dto.response.ItemDTO getItemById(Long id) {
+        return ItemConverter.convertItemToDTOResponse(itemRepository.getReferenceById(id));
     }
 
-    public List<ItemDTO> getAllItems(){
+    public List<lt.codeAcademy.AukcionoAPI.dto.response.ItemDTO> getAllItems() {
         return ItemConverter.convertItemsToDTO(itemRepository.findAll());
     }
 
@@ -33,12 +33,11 @@ public class ItemService {
         itemRepository.deleteById(id);
     }
 
-    public ItemDTO updateItem(Item item){
-        Item itemToUpdate = itemRepository.findById(item.getId()).orElseThrow(() -> new NoSuchElementException());
+    public Item updateItem(Long id, lt.codeAcademy.AukcionoAPI.dto.response.ItemDTO item) {
+        Item itemToUpdate = itemRepository.findById(id).orElseThrow(() -> new NoSuchElementException());
         itemToUpdate.setInformation(item.getInformation());
         itemToUpdate.setName(item.getName());
-        itemToUpdate.setCurrentBid(item.getCurrentBid());
-        itemToUpdate.setSeller(item.getSeller());
-        return ItemConverter.convertItemToDTO(itemToUpdate);
+        itemToUpdate.setReservedPrice(item.getReservedPrice());
+        return itemToUpdate;
     }
 }

@@ -1,10 +1,10 @@
-package lt.codeAcademy.AukcionoAPI.dto;
+package lt.codeAcademy.AukcionoAPI.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lt.codeAcademy.AukcionoAPI.entities.CurrentBid;
+
 
 import java.util.List;
 
@@ -14,10 +14,8 @@ import java.util.List;
 @Setter
 public class ItemDTO {
 
-    private Long id;
     private String name;
     private String information;
-    private List<CurrentBidDTO> currentBidListDTO;
-    private Long sellerId;
+    private Double reservedPrice;
 
 }

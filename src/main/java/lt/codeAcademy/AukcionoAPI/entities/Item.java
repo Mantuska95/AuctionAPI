@@ -1,9 +1,7 @@
 package lt.codeAcademy.AukcionoAPI.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,14 +18,14 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "information", nullable = false)
+    @Column(name = "information")
     private String information;
 
-    @Column(name = "reserved_price", nullable = false)
-    private Integer reservedPrice;
+    @Column(name = "reserved_price")
+    private Double reservedPrice;
 
     @ManyToOne
     private Seller seller;

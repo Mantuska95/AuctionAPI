@@ -2,10 +2,9 @@ package lt.codeAcademy.AukcionoAPI.services;
 
 import lombok.AllArgsConstructor;
 import lt.codeAcademy.AukcionoAPI.converters.BuyerConverter;
-import lt.codeAcademy.AukcionoAPI.dto.BuyerDTO;
+import lt.codeAcademy.AukcionoAPI.dto.request.BuyerDTO;
 import lt.codeAcademy.AukcionoAPI.entities.Buyer;
 import lt.codeAcademy.AukcionoAPI.repositories.BuyerRepository;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -21,14 +20,14 @@ public class BuyerService {
 
     public BuyerDTO addBuyer(Buyer buyer) {
         buyerRepository.save(buyer);
-        return BuyerConverter.convertBuyerToDTO(buyer);
+        return BuyerConverter.convertBuyerToDTORequest(buyer);
     }
 
-    public BuyerDTO getBuyerById(Long id) {
-        return BuyerConverter.convertBuyerToDTO(buyerRepository.getReferenceById(id));
+    public lt.codeAcademy.AukcionoAPI.dto.response.BuyerDTO getBuyerById(Long id) {
+        return BuyerConverter.convertBuyerToDTOResponse(buyerRepository.getReferenceById(id));
     }
 
-    public List<BuyerDTO> getAllBuyers(Pageable pageable) {
+    public List<lt.codeAcademy.AukcionoAPI.dto.response.BuyerDTO> getAllBuyers(Pageable pageable) {
         if (pageable != null) {
             return BuyerConverter.covertBuyersToBuyersDTO(buyerRepository.findAll(pageable));
         }
@@ -39,13 +38,12 @@ public class BuyerService {
         buyerRepository.deleteById(id);
     }
 
-    public BuyerDTO updateBuyer(Buyer buyer) {
-        Buyer buyerToUpdate = buyerRepository.findById(buyer.getId()).orElseThrow(() -> new NoSuchElementException());
+    public Buyer updateBuyer(lt.codeAcademy.AukcionoAPI.dto.response.BuyerDTO buyer, Long id) {
+        Buyer buyerToUpdate = buyerRepository.findById(id).orElseThrow(() -> new NoSuchElementException());
         buyerToUpdate.setName(buyer.getName());
         buyerToUpdate.setSurname(buyer.getSurname());
-        buyerToUpdate.setCurrentBid(buyer.getCurrentBid());
         buyerRepository.save(buyerToUpdate);
-        return BuyerConverter.convertBuyerToDTO(buyerToUpdate);
+        return buyerToUpdate;
     }
 
 }

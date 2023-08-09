@@ -1,4 +1,4 @@
-package lt.codeAcademy.AukcionoAPI.dto;
+package lt.codeAcademy.AukcionoAPI.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,9 +11,9 @@ import lombok.Setter;
 @Setter
 public class CurrentBidDTO {
 
-    private Long id;
+
     private Double bid;
-    private Long buyerDTOId;
-    private Long itemDTOId;
+    private Long buyerId;
+    private Long itemId;
 
 }

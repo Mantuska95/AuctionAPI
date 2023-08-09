@@ -2,7 +2,7 @@ package lt.codeAcademy.AukcionoAPI.services;
 
 import lombok.AllArgsConstructor;
 import lt.codeAcademy.AukcionoAPI.converters.SellerConverter;
-import lt.codeAcademy.AukcionoAPI.dto.SellerDTO;
+import lt.codeAcademy.AukcionoAPI.dto.request.SellerDTO;
 import lt.codeAcademy.AukcionoAPI.entities.Seller;
 import lt.codeAcademy.AukcionoAPI.repositories.SellerRepository;
 import org.springframework.stereotype.Service;
@@ -18,14 +18,14 @@ public class SellerService {
 
     public SellerDTO addSeller(Seller seller) {
         sellerRepository.save(seller);
-        return SellerConverter.convertSellerToDTO(seller);
+        return SellerConverter.convertSellerToDTORequest(seller);
     }
 
-    public SellerDTO getSellerById(Long id) {
-        return SellerConverter.convertSellerToDTO(sellerRepository.getReferenceById(id));
+    public lt.codeAcademy.AukcionoAPI.dto.response.SellerDTO getSellerById(Long id) {
+        return SellerConverter.convertSellerToDTOResponse(sellerRepository.getReferenceById(id));
     }
 
-    public List<SellerDTO> getAllSellers() {
+    public List<lt.codeAcademy.AukcionoAPI.dto.response.SellerDTO> getAllSellers() {
         return SellerConverter.convertSellersToDTO(sellerRepository.findAll());
     }
 
@@ -33,12 +33,11 @@ public class SellerService {
         sellerRepository.deleteById(id);
     }
 
-    public SellerDTO updateSeller(Seller seller) {
-        Seller sellerToUpdate = sellerRepository.findById(seller.getId()).orElseThrow(() -> new NoSuchElementException());
+    public Seller updateSeller(Long id,SellerDTO seller) {
+        Seller sellerToUpdate = sellerRepository.findById(id).orElseThrow(() -> new NoSuchElementException());
         sellerToUpdate.setName(seller.getName());
         sellerToUpdate.setSurname(seller.getSurname());
-        sellerToUpdate.setItem(seller.getItem());
         sellerRepository.save(sellerToUpdate);
-        return SellerConverter.convertSellerToDTO(sellerToUpdate);
+        return sellerToUpdate;
     }
 }
