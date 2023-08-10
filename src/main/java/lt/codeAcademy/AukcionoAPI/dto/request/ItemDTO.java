@@ -17,5 +17,7 @@ public class ItemDTO {
     private String name;
     private String information;
     private Double reservedPrice;
+    private Long sellerId;
+
 
 }

@@ -16,6 +16,7 @@ public class ItemConverter {
             itemDTO.setName(item.getName());
             itemDTO.setInformation(item.getInformation());
             itemDTO.setReservedPrice(item.getReservedPrice());
+            itemDTO.setSellerId(item.getSeller().getId());
         }
         return itemDTO;
     }
@@ -41,6 +42,11 @@ public class ItemConverter {
             item.setName(itemDTO.getName());
             item.setInformation(itemDTO.getInformation());
             item.setReservedPrice(itemDTO.getReservedPrice());
+            if (itemDTO.getSellerId() != null) {
+                Seller seller = new Seller();
+                seller.setId(itemDTO.getSellerId());
+                item.setSeller(seller);
+            }
         }
         return item;
     }
